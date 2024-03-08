@@ -18,7 +18,9 @@ class ArticleController extends Controller
             $keyword = request()->keyword;
             $query->where("title","like","%".$keyword."%");
             $query->orWhere("description","like","%".$keyword."%");
-        })->paginate(5)->withQueryString();
+        })
+        ->latest('id')
+        ->paginate(5)->withQueryString();
         return view('article.index',compact('articles'));
     }
 
@@ -35,9 +37,11 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+        
        $article = Article::create([
             "title"=>$request->title,
             "description"=>$request->description,
+            "category_id"=>$request->category,
             "user_id"=>Auth::id()
         ]);
         return redirect()->route('article.index')->with('status','Item is created');
@@ -68,6 +72,8 @@ class ArticleController extends Controller
       $article->update([
         "title"=>$request->title,
         "description"=>$request->description,
+        "category_id"=>$request->category,
+
       ]);
         return redirect()->route('article.index')->with('status','Item Updated Successful');
     }

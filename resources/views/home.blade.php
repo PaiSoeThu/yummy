@@ -15,6 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <i class="bi bi-person"></i>
                 </div>
             </div>
         </div>

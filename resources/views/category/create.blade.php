@@ -10,7 +10,7 @@
             <label for="" class="form-label">Article Title</label>
             <input type="text" name="title" class="form-control @error('title') is-invalid  @enderror" id="" value="{{old('title')}}">
             @error('title')
-            <p class="invalid-feedback">{{ $status }}</p>
+            <p class="invalid-feedback">{{ $message }}</p>
             @enderror
         </div>
         

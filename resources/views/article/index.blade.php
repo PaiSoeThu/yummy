@@ -77,12 +77,17 @@
                         <a href="{{ route('article.show',$article->id) }}" class="btn btn-sm btn-outline-primary">
                             <i class="bi bi-info"></i>
                         </a>
+                        @can('update',$article)
                         <a href="{{ route('article.edit',$article->id) }}" class="btn btn-sm btn-outline-warning">
                             <i class="bi bi-pencil"></i>
                         </a>
+                        @endcan
+                        
+                        @can('delete',$article)
                         <button form="form{{ $article->id }}" class="btn btn-sm btn-outline-danger">
                             <i class="bi bi-trash3"></i>
                         </button>
+                        @endcan
                     </div>
                 </td>
                 <td>{{ $article->created_at->diffforhumans()}}</td>

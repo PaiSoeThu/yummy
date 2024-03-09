@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Article;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
@@ -15,6 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny',Category::class);
+
         $categories = Category::when(request()->has('keyword'),function($query){
             $keyword = request()->keyword;
             $query->where("title","like","%".$keyword."%");
@@ -29,6 +32,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Category::class);
+
         return view('category.create');
     }
 
@@ -37,6 +42,8 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        $this->authorize('create',Category::class);
+
          Category::create([
             'title' => $request->title,
             "user_id"=>Auth::id()
@@ -58,6 +65,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $this->authorize('update',Category::class);
+
         return view('category.edit',compact('category'));
     }
 
@@ -66,6 +75,11 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+         $this->authorize('update',$category);
+
+        // if ($request->user()->cannot('update',$category)){
+        //     return abort(403,'sorry');
+        // }
         $category->update([
             "title" => $request->title
         ]);

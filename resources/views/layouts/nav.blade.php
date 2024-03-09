@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ url('/dashboard/home') }}">
             {{ config('app.name', 'Laravel') }}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -18,21 +18,30 @@
                 <!-- Authentication Links -->
 
                 @auth
+
+                @can('viewAny',App\Models\Category::class)
+                    
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('category.create') }}">{{ __('Create Category') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('category.index') }}">{{ __('Category List') }}</a>
                 </li>
+                @endcan
+
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('article.create') }}">{{ __('Create Article') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('article.index') }}">{{ __('Article List') }}</a>
                 </li>
+
+                @can('show-user-list')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('users') }}">{{ __('User List') }}</a>
                 </li>
+                @endcan
                 @endauth
                 @guest
                     @if (Route::has('login'))

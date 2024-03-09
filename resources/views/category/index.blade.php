@@ -64,12 +64,17 @@
                 </td>
                 <td>
                     <div class="">
+
+                        @can('update',$category) 
                         <a href="{{ route('category.edit',$category->id) }}" class="btn btn-sm btn-outline-warning">
                             <i class="bi bi-pencil"></i>
                         </a>
+                        @endcan
+                        @can('delete',$category) 
                         <button form="form{{ $category->id }}" class="btn btn-sm btn-outline-danger">
                             <i class="bi bi-trash3"></i>
                         </button>
+                        @endcan
                     </div>
                 </td>
                 <td>{{ $category->created_at->diffforhumans()}}</td>

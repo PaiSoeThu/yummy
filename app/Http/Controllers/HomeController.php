@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -27,6 +28,9 @@ class HomeController extends Controller
         return view('/home');
     }
     public function users(){
+
+        // Gate::authorize('show-user-list');
+        
         $users = User::paginate(5)->withQueryString();
         return view('users',compact('users'));
     }

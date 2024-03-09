@@ -20,8 +20,14 @@ class UserSeeder extends Seeder
             'name' => 'paingsoethu',
              'email' => 'paingsoethu@gmail.com',
              'password' => Hash::make("paingsoethu"),
-
-             
+             'role' => 'admin'
          ]);
+
+        //  User::factory()->create([
+        //     'name' => 'kitkit',
+        //      'email' => 'kitkit@gmail.com',
+        //      'password' => Hash::make("kitkit"),
+        //      'role' => 'admin'
+        //  ]);
     }
 }

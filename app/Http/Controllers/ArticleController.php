@@ -14,6 +14,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
+
+        // $this->authorize('view',Article::class);
+
         $articles = Article::when(request()->has('keyword'),function($query){
             $keyword = request()->keyword;
             $query->where("title","like","%".$keyword."%");
@@ -60,6 +63,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
+        $this->authorize('update',$article);
         return view('article.edit',compact('article'));
     }
 
@@ -68,6 +72,8 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
+
+        $this->authorize('update',$article);
        
       $article->update([
         "title"=>$request->title,
@@ -83,6 +89,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        $this->authorize('delete',$article);
+
         $article->delete();
         return redirect()->route('article.index')->with('status','Item Deleted Successful');
     }

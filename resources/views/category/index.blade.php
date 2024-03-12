@@ -43,7 +43,7 @@
         <thead>
             <tr>
                 <td>#</td>
-                <td>Article</td>
+                <td>Title</td>
                 <td>Owner</td>
                 <td>Action</td>
                 <td>Created At</td>
@@ -58,10 +58,11 @@
                 <td>
                     {{ $category->title }}
                 </td>
-               
+            
                 <td>
-                    {{ $category->user_id }}
+                    {{ $category->user->name}}
                 </td>
+             
                 <td>
                     <div class="">
 

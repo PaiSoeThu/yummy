@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -18,9 +21,15 @@ class ArticleController extends Controller
         // $this->authorize('view',Article::class);
 
         $articles = Article::when(request()->has('keyword'),function($query){
+           $query->where(function(Builder $builder){
             $keyword = request()->keyword;
-            $query->where("title","like","%".$keyword."%");
-            $query->orWhere("description","like","%".$keyword."%");
+            $builder->where("title","like","%".$keyword."%");
+            $builder->orWhere("description","like","%".$keyword."%");
+           });
+        })
+        
+        ->when(Auth::user()->role === 'user',function($query){
+            $query->where('user_id',Auth::id());
         })
         ->latest('id')
         ->paginate(5)->withQueryString();
@@ -40,10 +49,17 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+        if ($request->hasFile('featured_image')) {
+            $newName = uniqid()."_feature_image.".$request->file('featured_image')->extension();
+             $request->file('featured_image')->storeAs("public",$newName);
+        }
         
-       $article = Article::create([
+       Article::create([
             "title"=>$request->title,
+            "slug"=>Str::slug($request->title),
             "description"=>$request->description,
+            "excerpt" => Str::words($request->description,30,"..."),
+            "featured_image" => $newName,
             "category_id"=>$request->category,
             "user_id"=>Auth::id()
         ]);
@@ -63,7 +79,8 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        $this->authorize('update',$article);
+        // $this->authorize('update',$article);
+
         return view('article.edit',compact('article'));
     }
 
@@ -73,14 +90,26 @@ class ArticleController extends Controller
     public function update(UpdateArticleRequest $request, Article $article)
     {
 
-        $this->authorize('update',$article);
+        // $this->authorize('update',$article);
        
-      $article->update([
-        "title"=>$request->title,
-        "description"=>$request->description,
-        "category_id"=>$request->category,
+        if ($request->hasFile('featured_image')) {
 
-      ]);
+            // delete image
+            Storage::delete(['public/', $article->featured_image]); 
+            // add image 
+            $newName = uniqid()."_feature_image.".$request->file('featured_image')->extension();
+             $request->file('featured_image')->storeAs("public",$newName);
+        }
+        
+       Article::update([
+            "title"=>$request->title,
+            "slug"=>Str::slug($request->title),
+            "description"=>$request->description,
+            "excerpt" => Str::words($request->description,30,"..."),
+            "featured_image" => $newName,
+            "category_id"=>$request->category,
+            "user_id"=>Auth::id()
+        ]);
         return redirect()->route('article.index')->with('status','Item Updated Successful');
     }
 
@@ -89,8 +118,10 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        $this->authorize('delete',$article);
-
+        // $this->authorize('delete',$article);
+        if (isset($article->featured_image)) {
+            Storage::delete(['public/', $article->featured_image]); 
+        }
         $article->delete();
         return redirect()->route('article.index')->with('status','Item Deleted Successful');
     }

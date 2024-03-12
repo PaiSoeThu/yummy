@@ -9,17 +9,17 @@ use Illuminate\Auth\Access\Response;
 class CategoryPolicy
 {
 
-    // public function before(User $user)
-    // {
-    //     return $user->role === "admin";
-    // }
+    public function before(User $user): bool
+    {
+        return   $user->role === "admin";
+    }
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->role === "admin";
-        
+        return   $user->role === "admin";
+
     }
 
     /**
@@ -27,7 +27,7 @@ class CategoryPolicy
      */
     public function view(User $user, Category $category): bool
     {
-        return $user->role === "admin";
+        return $user->role == $category->user_id;
         
     }
 
@@ -36,7 +36,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role === "admin";
+        return   $user->role === "admin";
         
     }
 
@@ -45,8 +45,10 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-         return $user->role === "admin";
-        // return $user->role === $category->user_id;
+        // if ( $user->role === "admin") {
+        //     return true;
+        // }
+         return $user->role == $category->user_id;
 
 
     }
@@ -56,8 +58,10 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        return $user->role === "admin";
-        // return $user->role === $category->user_id;
+        // if ( $user->role === "admin") {
+        //     return true;
+        // }
+          return $user->role == $category->user_id;
 
 
     }

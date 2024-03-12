@@ -12,7 +12,8 @@
             <tr>
                 <td>#</td>
                 <td>Information</td>
-               
+                <td>Category Count</td>
+                <td>Article Count</td>
                 <td>Created At</td>
                 <td>Updated At</td>
 
@@ -29,6 +30,8 @@
                         {{ $user->email }}
                     </span>
                 </td>
+                <td>{{ $user->categories->count() }}</td>
+                <td>{{$user->articles->count() }}</td>
 
                 <td>{{ $user->created_at->diffforhumans()}}</td>
                 <td>{{ $user->updated_at->diffforhumans()}}</td>

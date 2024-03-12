@@ -45,7 +45,9 @@
                 <td>#</td>
                 <td>Title</td>
                 <td>Category</td>
+                @can("admin-only")
                 <td>Owner</td>
+                @endcan
                 <td>Action</td>
                 <td>Created At</td>
                 <td>Updated At</td>
@@ -57,7 +59,7 @@
             <tr>
                 <td>{{ $article->id }}</td>
                 <td>
-                    {{ $article->title }}
+                    {{  substr($article->title,0,20) }}
                     <br>
                     <span class="small text-black-50">
                         {{ substr($article->description,0,20) }}
@@ -66,28 +68,30 @@
 
                
                 <td>
-                    {{ $article->category_id }}
+                    {{ $article->category->title ?? "Uncategory" }}
                 </td>
+                @can("admin-only")
                 <td>
-                    {{ $article->user_id }}
+                    {{ $article->user->name}}
                 </td>
+                @endcan
                 <td>
                     <div class="">
 
                         <a href="{{ route('article.show',$article->id) }}" class="btn btn-sm btn-outline-primary">
                             <i class="bi bi-info"></i>
                         </a>
-                        @can('update',$article)
+                        {{-- @can('update',$article) --}}
                         <a href="{{ route('article.edit',$article->id) }}" class="btn btn-sm btn-outline-warning">
                             <i class="bi bi-pencil"></i>
                         </a>
-                        @endcan
+                        {{-- @endcan --}}
                         
-                        @can('delete',$article)
+                        {{-- @can('delete',$article) --}}
                         <button form="form{{ $article->id }}" class="btn btn-sm btn-outline-danger">
                             <i class="bi bi-trash3"></i>
                         </button>
-                        @endcan
+                        {{-- @endcan --}}
                     </div>
                 </td>
                 <td>{{ $article->created_at->diffforhumans()}}</td>
@@ -103,7 +107,7 @@
             <tr>
             <td colspan="5" class="text-center">
               There is no records <br><br>
-              <a href="{{ route('article.create') }}" class="btn btn-outline-primary btn-sm"> Create Category</a>
+              <a href="{{ route('article.create') }}" class="btn btn-outline-primary btn-sm"> Create Article</a>
             </td>
             </tr>
             @endforelse

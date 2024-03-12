@@ -23,6 +23,13 @@ class UserSeeder extends Seeder
              'role' => 'admin'
          ]);
 
+         User::factory()->create([
+            'name' => 'kitkit',
+             'email' => 'kitkit@gmail.com',
+             'password' => Hash::make("12345678"),
+             'role' => 'user'
+         ]);
+
         //  User::factory()->create([
         //     'name' => 'kitkit',
         //      'email' => 'kitkit@gmail.com',

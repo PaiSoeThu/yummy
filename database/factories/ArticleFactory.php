@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article>
@@ -18,9 +19,14 @@ class ArticleFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->sentence();
+        $des = fake()->paragraph(20);
+
         return [
-            "title" => fake()->sentence(),
-            "description" => fake()->realText(),
+            "title" => $title,
+            "slug" => Str::slug($title),
+            "description" => $des,
+            "excerpt" => Str::words($des,30,'...'),
             // "user_id" => User::all()->random()->id
             // "category_id" => Category::all()->random()->id,
             "category_id" => rand(1,5),

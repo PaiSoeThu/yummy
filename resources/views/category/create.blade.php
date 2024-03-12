@@ -2,12 +2,12 @@
 @section('content')
 <div class="container">
 
-    <h3>Create New Article</h3>
+    <h3>Create New Category</h3>
     <hr>
     <form action="{{ route('category.store') }}" method="post">
         @csrf
         <div class="mb-3">
-            <label for="" class="form-label">Article Title</label>
+            <label for="" class="form-label">Category Title</label>
             <input type="text" name="title" class="form-control @error('title') is-invalid  @enderror" id="" value="{{old('title')}}">
             @error('title')
             <p class="invalid-feedback">{{ $message }}</p>

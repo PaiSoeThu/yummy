@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Article;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 
 class CategoryController extends Controller
 {
@@ -46,6 +48,7 @@ class CategoryController extends Controller
 
          Category::create([
             'title' => $request->title,
+            'slug'=>Str::slug($request->title),
             "user_id"=>Auth::id()
         ]);
         return redirect()->route('category.index')->with('status','New Category Created');
@@ -81,7 +84,8 @@ class CategoryController extends Controller
         //     return abort(403,'sorry');
         // }
         $category->update([
-            "title" => $request->title
+            "title" => $request->title,
+            "slug" => Str::slug($request->title)
         ]);
         return redirect()->route('category.index')->with('status','Category Updated Success');
     }
@@ -91,6 +95,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $this->authorize('delete',$category);
         $category->delete();
         return redirect()->route('category.index')->with('status','Category Deleted Success');
     }

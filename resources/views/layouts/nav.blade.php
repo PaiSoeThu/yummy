@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/dashboard/home') }}">
+        <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -37,7 +37,7 @@
                     <a class="nav-link" href="{{ route('article.index') }}">{{ __('Article List') }}</a>
                 </li>
 
-                @can('show-user-list')
+                @can('admin-only')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('users') }}">{{ __('User List') }}</a>
                 </li>

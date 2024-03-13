@@ -4,9 +4,9 @@
 
     <h3>Edit Article</h3>
     <hr>
-    <form action="{{ route('article.update',$article->id) }}" method="post">
-        @method('put')
+    <form action="{{ route('article.update',$article->id) }}" method="post" enctype="multipart/form-data">
         @csrf
+        @method('put')
         <div class="mb-3">
             <label for="" class="form-label">Article Title</label>
             <input type="text" name="title" class="form-control @error('title') is-invalid  @enderror" id="" value="{{old('title',$article->title)}}">
@@ -39,7 +39,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="" class="form-label">Description</label>
+            <label for="" class="form-label">Image</label>
             {{-- <textarea name="description" id="" cols="30" rows="5" class="form-control @error('description') is-invalid  @enderror" value="{{old('description')}}"></textarea> --}}
             <input type="file" name="featured_image" id="" class="form-control @error('featured_image') is-invalid  @enderror">
             

@@ -15,15 +15,24 @@
 @endif
 
 
-
+<div class="row">
 @forelse ($articles as $article)
+<div class="col-lg-6">
 <div class="card mb-3">
     <div class="card-body">
+        {{-- title  --}}
         <h5>
             <a href="{{ route('detail',$article->slug) }}" class="text-dark text-decoration-none">
-                {{ $article->title }}
+                {{ substr($article->title,0,20) . "..." }}
             </a>
         </h5>
+          {{-- image  --}}
+          @if($article->featured_image == null)
+          <img src="{{ asset("storage/download.png") }}" alt="" width="100px" height="100px" class="mb-2">
+          @elseif ($article->featured_image)
+          <img src="{{ asset("storage/".$article->featured_image) }}" alt="" width="100px" height="100px" class="mb-2">
+          @endif
+          
         <div>
             <span class="badge bg-dark mb-3">
                 {{ $article->category->title ?? "Uncategory"}}
@@ -39,6 +48,8 @@
         <a href="{{ route('detail',$article->slug) }}" class="btn btn-sm btn-dark">See More</a>
     </div>
 </div>
+</div>
+
     
 @empty
     <div class="card">
@@ -48,5 +59,6 @@
         </div>
     </div>
 @endforelse
+</div>
 {{ $articles->onEachSide(1)->links() }}
 @endsection

@@ -49,4 +49,5 @@
   
   </form>
   @endauth
+  <a href="{{ route('index') }}" class="btn btn-sm btn-dark">Back</a>
 </div>

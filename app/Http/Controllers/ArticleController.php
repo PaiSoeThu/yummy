@@ -32,7 +32,7 @@ class ArticleController extends Controller
             $query->where('user_id',Auth::id());
         })
         ->latest('id')
-        ->paginate(5)->withQueryString();
+        ->paginate(6)->withQueryString();
         return view('article.index',compact('articles'));
     }
 
@@ -49,20 +49,38 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+    //     if ($request->hasFile('featured_image')) {
+    //         $newName = uniqid()."_feature_image.".$request->file('featured_image')->extension();
+    //          $request->file('featured_image')->storeAs("public",$newName);
+    //     }
+        
+    //    Article::create([
+    //         "title"=>$request->title,
+    //         "slug"=>Str::slug($request->title),
+    //         "description"=>$request->description,
+    //         "excerpt" => Str::words($request->description,30,"..."),
+    //         "featured_image" => $newName,
+    //         "category_id"=>$request->category,
+    //         "user_id"=>Auth::id()
+    //     ]);
+
+        ////////
+        $article = new Article();
+        $article->title = $request->title;
+        $article->slug =Str::slug($request->title);
+        $article->description =$request->description;
+        $article->excerpt = Str::words($request->description,30,"...");
+    
         if ($request->hasFile('featured_image')) {
+            // add image 
             $newName = uniqid()."_feature_image.".$request->file('featured_image')->extension();
-             $request->file('featured_image')->storeAs("public",$newName);
+            $request->file('featured_image')->storeAs("public",$newName);
+            $article->featured_image = $newName;
         }
         
-       Article::create([
-            "title"=>$request->title,
-            "slug"=>Str::slug($request->title),
-            "description"=>$request->description,
-            "excerpt" => Str::words($request->description,30,"..."),
-            "featured_image" => $newName,
-            "category_id"=>$request->category,
-            "user_id"=>Auth::id()
-        ]);
+        $article->category_id =$request->category;
+        $article->user_id =Auth::id();
+        $article->save();
         return redirect()->route('article.index')->with('status','Item is created');
     }
 
@@ -92,24 +110,35 @@ class ArticleController extends Controller
 
         // $this->authorize('update',$article);
        
-        if ($request->hasFile('featured_image')) {
+      
+        // return $request;
+    //    $article->update([
+    //         "title"=>$request->title,
+    //         "slug"=>Str::slug($request->title),
+    //         "description"=>$request->description,
+    //         "excerpt" => Str::words($request->description,30,"..."),
+    //          "featured_image" => $newName,
+    //         "category_id"=>$request->category,
+    //         "user_id"=>Auth::id()
+    //     ]);
+    $article->title = $request->title;
+    $article->slug =Str::slug($request->title);
+    $article->description =$request->description;
+    $article->excerpt = Str::words($request->description,30,"...");
 
-            // delete image
-            Storage::delete(['public/', $article->featured_image]); 
-            // add image 
-            $newName = uniqid()."_feature_image.".$request->file('featured_image')->extension();
-             $request->file('featured_image')->storeAs("public",$newName);
-        }
-        
-       Article::update([
-            "title"=>$request->title,
-            "slug"=>Str::slug($request->title),
-            "description"=>$request->description,
-            "excerpt" => Str::words($request->description,30,"..."),
-            "featured_image" => $newName,
-            "category_id"=>$request->category,
-            "user_id"=>Auth::id()
-        ]);
+    if ($request->hasFile('featured_image')) {
+        // delete image
+        Storage::delete('public/'.$article->featured_image); 
+        // add image 
+        $newName = uniqid()."_feature_image.".$request->file('featured_image')->extension();
+        $request->file('featured_image')->storeAs("public",$newName);
+        $article->featured_image = $newName;
+    }
+    
+    $article->category_id =$request->category;
+    $article->user_id =Auth::id();
+    $article->update();
+
         return redirect()->route('article.index')->with('status','Item Updated Successful');
     }
 
@@ -120,7 +149,7 @@ class ArticleController extends Controller
     {
         // $this->authorize('delete',$article);
         if (isset($article->featured_image)) {
-            Storage::delete(['public/', $article->featured_image]); 
+            Storage::delete('public/'.$article->featured_image); 
         }
         $article->delete();
         return redirect()->route('article.index')->with('status','Item Deleted Successful');

@@ -1,11 +1,17 @@
 @extends('layouts.master')
 @section('content')
 
-    <h4>
+    <h5>
     <a href="" class="text-dark text-decoration-none">
         {{ $article->title }}
     </a>
-    </h4>
+    </h5>
+      {{-- image  --}}
+      @if($article->featured_image == null)
+      <img src="{{ asset("storage/download.png") }}" alt="" width="200px" height="200px" class="mb-2">
+      @elseif ($article->featured_image)
+      <img src="{{ asset("storage/".$article->featured_image) }}" alt="" width="200px" height="200px" class="mb-2">
+      @endif
     <div>
     <span class="badge bg-dark mb-3">
         {{ $article->category->title ?? "Uncategory"}}

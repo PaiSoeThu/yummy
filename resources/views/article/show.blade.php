@@ -15,6 +15,11 @@
          <td>{{ $article->description }}</td>
      </tr>
      <tr>
+        <td>Image</td>
+        <td><img src="{{ asset("storage/".$article->featured_image) }}" alt=""></td>
+    </tr>
+
+     <tr>
          <td>Created At</td>
          <td>{{ $article->created_at }}</td>
      </tr>

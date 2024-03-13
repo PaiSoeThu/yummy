@@ -32,7 +32,7 @@ class ArticleController extends Controller
             $query->where('user_id',Auth::id());
         })
         ->latest('id')
-        ->paginate(6)->withQueryString();
+        ->paginate(10)->withQueryString();
         return view('article.index',compact('articles'));
     }
 

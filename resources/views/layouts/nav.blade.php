@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top bg-body-tertiary">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
@@ -15,33 +15,12 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
-                <!-- Authentication Links -->
+              
 
                 @auth
-
-                @can('viewAny',App\Models\Category::class)
-                    
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('category.create') }}">{{ __('Create Category') }}</a>
+                    <a class="btn btn-sm btn-primary mt-1" href="{{ route('home') }}">Go Dashboard</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('category.index') }}">{{ __('Category List') }}</a>
-                </li>
-                @endcan
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('article.create') }}">{{ __('Create Article') }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('article.index') }}">{{ __('Article List') }}</a>
-                </li>
-
-                @can('admin-only')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users') }}">{{ __('User List') }}</a>
-                </li>
-                @endcan
                 @endauth
                 @guest
                     @if (Route::has('login'))

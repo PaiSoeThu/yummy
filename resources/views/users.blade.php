@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
 
     <h4>User List</h4>

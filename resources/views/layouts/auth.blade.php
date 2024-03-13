@@ -41,15 +41,14 @@
         <main class="py-4">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3">@include('layouts.left-sidebar')</div>
-                    <div class="col-lg-9"> @yield('content')</div>
+                    <div class="col-lg-12"> @yield('content')</div>
                  </div>
              </div>  
          </main>
         
 
      
-    <footer class="text-center text-white mt-auto bg-body-tertiary">
+    <footer class="bg-primary text-center text-white mt-auto">
         <p class="p-3 m-0">Development By PST</p>
     </footer>
     </div>

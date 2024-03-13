@@ -21,7 +21,7 @@ class PageController extends Controller
             $query->where("category_id",request()->category);
         })
         ->latest('id')
-        ->paginate(5)->withQueryString();
+        ->paginate(6)->withQueryString();
         return view('welcome',compact('articles'));
     }
 
@@ -42,7 +42,7 @@ class PageController extends Controller
                     $builder->where("title","like","%".$keyword."%");
                     $builder->orWhere("description","like","%".$keyword."%");
                 });
-              })->paginate(7)->withQueryString()
+              })->paginate(6)->withQueryString()
         ]);
     }
 }

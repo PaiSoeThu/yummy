@@ -8,11 +8,11 @@
                   {{ $comment->content }}
               </p>
               <div class="">
-                  <span class="badge bg-dark">
+                  <span class="badge bg-primary">
                       <i class="bi bi-person"></i>
                       {{ $comment->user->name }}
                   </span>
-                  <span class="badge bg-dark">
+                  <span class="badge bg-primary">
                       <i class="bi bi-clock"></i>
                       {{ $comment->created_at->diffForHumans() }}
                   </span>
@@ -21,7 +21,7 @@
                   <form action="{{ route('comment.destroy',$comment->id) }}" class="d-inline-block" method="post">
                       @csrf
                       @method('delete')
-                      <button class="badge bg-dark"><i class="bi bi-trash3"></i> Delete</button>
+                      <button class="badge bg-primary"><i class="bi bi-trash3"></i> Delete</button>
                   </form>
                   @endcan
 
@@ -44,10 +44,10 @@
       <textarea class="form-control" name="content" cols="4" placeholder="say something about this article"></textarea>
       <div class="mt-3 d-flex justify-content-between">
           <span>commenting as {{ Auth::user()->name }}</span>
-          <button class="btn btn-sm btn-dark">Comment</button>
+          <button class="btn btn-sm btn-primary">Comment</button>
       </div>
   
   </form>
   @endauth
-  <a href="{{ route('index') }}" class="btn btn-sm btn-dark">Back</a>
+  <a href="{{ route('index') }}" class="btn btn-sm btn-primary">Back</a>
 </div>

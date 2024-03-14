@@ -8,7 +8,6 @@
     <div class="list-group">
         <a href="{{route('article.index')}}" class="list-group-item list-group-item-action ">Article List</a>
         <a href="{{route('article.create')}}" class="list-group-item list-group-item-action ">Create Article</a>
-
     </div>
 
     @can('viewAny',App\Models\Category::class)
@@ -24,15 +23,10 @@
     @can('admin-only')
     <p class="mt-3 my-2">Members</p>
     <div class="list-group">
-      
-            <a class="list-group-item list-group-item-action" href="{{ route('users') }}">{{ __('User List') }}</a>
-        
+        <a class="list-group-item list-group-item-action" href="{{ route('users') }}">{{ __('User List') }}</a>    
     </div>
 
 @endcan
-    
-
 </aside>
-
 @endauth
 </div>

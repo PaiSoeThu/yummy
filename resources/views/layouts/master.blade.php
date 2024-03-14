@@ -38,10 +38,6 @@
 <body>
     <div id="app" class="min-vh-100 d-flex flex-column">
        @include('layouts.nav')
-
-  
-
-    
        <main class="py-4">
         <div class="container">
             <div class="row">
@@ -50,10 +46,8 @@
              </div>
          </div>  
      </main>
-    
-
-    <footer class="text-center text-white mt-auto bg-body-tertiary">
-        <p class="p-3 m-0 text-primary-emphasis">Since 2024</p>
+<footer class="text-center text-white mt-auto bg-body-tertiary">
+    <p class="p-3 m-0 text-primary-emphasis">Since 2024</p>
 </footer>
     </div>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}

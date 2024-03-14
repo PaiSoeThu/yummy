@@ -83,6 +83,7 @@ class CategoryController extends Controller
         // if ($request->user()->cannot('update',$category)){
         //     return abort(403,'sorry');
         // }
+        
         $category->update([
             "title" => $request->title,
             "slug" => Str::slug($request->title)

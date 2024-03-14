@@ -23,20 +23,7 @@
     <div id="app" class="min-vh-100 d-flex flex-column">
         
        @include('layouts.nav')
-
-       {{-- default --}}
-       
-       {{-- <main class="py-4">
-           <div class="container">
-               <div class="row w-100">
-                <div class="col-lg-10 mx-auto">
-                    @yield('content')  
-                </div>
-                </div>
-            </div>  
-        </main> --}}
-
-        
+   
         {{-- testing  --}}
         <main class="py-4">
             <div class="container">
@@ -45,9 +32,7 @@
                  </div>
              </div>  
          </main>
-        
-
-     
+         
     <footer class="bg-primary text-center text-white mt-auto">
         <p class="p-3 m-0">Development By PST</p>
     </footer>

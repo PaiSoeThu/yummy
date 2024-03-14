@@ -17,9 +17,7 @@
                 {{-- image  --}}
                 @if($article->featured_image == null)
                 <div style="background-image:url({{asset('storage//download.png')}}); background-size: cover; background-position: center top;height:250px;"></div>
-                {{-- <img src="{{ asset("storage/download.png") }}" alt="" height="250px" class="mb-2 object-fit-cover w-100"> --}}
                 @elseif ($article->featured_image)
-                {{-- <img src="{{ asset("storage/".$article->featured_image) }}" alt="" height="250px" class="mb-2 object-fit-cover w-100"> --}}
                 <div style="background-image:url({{asset('storage/'.$article->featured_image)}}); background-size: cover; background-position: center top;height:250px;"></div>
                 @endif
                 {{-- title  --}}

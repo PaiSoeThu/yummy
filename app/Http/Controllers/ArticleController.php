@@ -49,22 +49,7 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-    //     if ($request->hasFile('featured_image')) {
-    //         $newName = uniqid()."_feature_image.".$request->file('featured_image')->extension();
-    //          $request->file('featured_image')->storeAs("public",$newName);
-    //     }
-        
-    //    Article::create([
-    //         "title"=>$request->title,
-    //         "slug"=>Str::slug($request->title),
-    //         "description"=>$request->description,
-    //         "excerpt" => Str::words($request->description,30,"..."),
-    //         "featured_image" => $newName,
-    //         "category_id"=>$request->category,
-    //         "user_id"=>Auth::id()
-    //     ]);
-
-        ////////
+   
         $article = new Article();
         $article->title = $request->title;
         $article->slug =Str::slug($request->title);
@@ -110,17 +95,6 @@ class ArticleController extends Controller
 
         // $this->authorize('update',$article);
        
-      
-        // return $request;
-    //    $article->update([
-    //         "title"=>$request->title,
-    //         "slug"=>Str::slug($request->title),
-    //         "description"=>$request->description,
-    //         "excerpt" => Str::words($request->description,30,"..."),
-    //          "featured_image" => $newName,
-    //         "category_id"=>$request->category,
-    //         "user_id"=>Auth::id()
-    //     ]);
     $article->title = $request->title;
     $article->slug =Str::slug($request->title);
     $article->description =$request->description;

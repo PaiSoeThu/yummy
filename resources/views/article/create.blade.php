@@ -42,7 +42,6 @@
         {{-- upload image  --}}
         <div class="mb-3">
             <label for="" class="form-label">Description</label>
-            {{-- <textarea name="description" id="" cols="30" rows="5" class="form-control @error('description') is-invalid  @enderror" value="{{old('description')}}"></textarea> --}}
             <input type="file" name="featured_image" id="" class="form-control @error('featured_image') is-invalid  @enderror" value="{{old("featured_image")}}">
             
             @error('featured_image')

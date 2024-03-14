@@ -24,9 +24,6 @@
             All Categories
             </a>
             @foreach (App\Models\Category::all() as $category )
-            {{-- <a class="list-group-item list-group-item-action" href="{{ route('index',["category"=>$category->id]) }}">
-                {{$category->title}}
-            </a> --}}
             <a href="{{ route('categorized',$category->slug) }}" class="list-group-item list-group-item-action text-light-50">{{$category->title}}</a>
             @endforeach
         </div>
@@ -37,9 +34,6 @@
         <p class="fw-bold mb-2 text-dark-emphasis">Latest Posts</p>
         <div class="list-group">
             @foreach (App\Models\Article::latest('id')->limit(5)->get() as $article )
-            {{-- <a class="list-group-item list-group-item-action" href="{{ route('index',["category"=>$category->id]) }}">
-                {{$category->title}}
-            </a> --}}
             <a href="{{ route('detail',$article->slug) }}" class="list-group-item list-group-item-action text-light-50">{{$article->title}}</a>
             @endforeach
         </div>

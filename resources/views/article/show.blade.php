@@ -16,7 +16,7 @@
      </tr>
      <tr>
         <td>Image</td>
-        <td><img src="{{ asset("storage/".$article->featured_image) }}" alt=""></td>
+        <td><img src="{{ asset("storage/".$article->featured_image) }}" alt="" width="200px" height="200px" class="object-fit-cover"></td>
     </tr>
 
      <tr>

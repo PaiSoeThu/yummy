@@ -19,7 +19,7 @@
 
                 @auth
                 <li class="nav-item">
-                    <a class="btn btn-sm btn-primary mt-1" href="{{ route('home') }}">Go Dashboard</a>
+                    <a class="btn btn-sm btn-primary mt-1" href="{{ route('home') }}">Dashboard</a>
                 </li>
                 @endauth
                 @guest

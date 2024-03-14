@@ -22,7 +22,7 @@ class UpdateArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-             "title" => "required|min:10|max:255|unique:articles,title,".$this->route('article')->id,
+             "title" => "required|min:5|max:255|unique:articles,title,".$this->route('article')->id,
             // "title" => "required|min:10|max:255",
 
             "description" => "required|min:100",

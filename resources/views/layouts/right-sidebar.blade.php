@@ -10,7 +10,7 @@
             value="{{ request()->keyword }}"           
             >
             @if (request()->has('keyword'))
-            <a href="" class="btn btn-sm pt-2 btn-outline-secondary" ><i class="bi bi-backspace"></i></a>
+            <a href="{{ route("index") }}" class="btn btn-sm pt-2 btn-outline-secondary" ><i class="bi bi-backspace"></i></a>
             @endif
             <button class="btn btn-sm btn-primary"><i class="bi bi-search"></i></button>
             </div>
